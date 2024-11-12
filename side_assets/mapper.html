@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leaflet Map Click Example</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        #map { height: 400px; width: 100%; }
+    </style>
+</head>
+<body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<script>
+    // Initialize the map
+    var map = L.map('map').setView([51.505, -0.09], 13);
+
+    // Add OpenStreetMap tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a click event listener to the map
+    map.on('click', function(e) {
+        // Get coordinates of the click event
+        var lat = e.latlng.lat;
+        var lng = e.latlng.lng;
+
+        // Place a marker at the clicked location
+        L.marker([lat, lng]).addTo(map)
+            .bindPopup("Coordinates: " + lat.toFixed(5) + ", " + lng.toFixed(5))
+            .openPopup();
+
+        // Log coordinates in the console (or use them in your application)
+        console.log("Clicked coordinates: ", lat, lng);
+    });
+</script>
+
+</body>
+</html>

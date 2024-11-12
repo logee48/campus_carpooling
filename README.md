@@ -1,1 +1,3 @@
-# campus_carpooling
+# MERN-boilerplate-from-auth
+
+## using jwt
