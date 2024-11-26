@@ -7,7 +7,7 @@ import L from 'leaflet';
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 
-const defaultIcon = new L.Icon({
+const defaultIcon = new L.Icon({ 
   iconUrl: markerIcon,
   shadowUrl: markerShadow,
 });

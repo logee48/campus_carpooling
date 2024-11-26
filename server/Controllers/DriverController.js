@@ -67,3 +67,23 @@ module.exports.updateDriverData = async (req, res, next) => {
     res.status(500).json({ message: "Internal server error" });
   }
 };
+
+
+//  IT fetches all driver data
+module.exports.getAllDriverData = async (req, res) => {
+  try {
+    // Retrieve all driver documents from the Driver collection
+    const drivers = await Driver.find({}); // Empty filter to fetch all data
+
+    // Check if there are any drivers in the collection
+    if (!drivers || drivers.length === 0) {
+      return res.status(404).json({ message: "No drivers found" });
+    }
+
+    // Send success response with all driver data
+    res.status(200).json({ message: "Driver data retrieved successfully", success: true, drivers });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
