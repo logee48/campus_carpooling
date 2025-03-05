@@ -26,7 +26,7 @@ module.exports.Signup = async (req, res, next) => {
   } catch (error) {
     console.error(error);
   }
-};
+}; 
 
 module.exports.Login = async (req, res, next) => {
     try {

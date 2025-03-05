@@ -125,6 +125,7 @@ function Rider() {
           <p><strong>Location:</strong> {nearestDriver.lat}, {nearestDriver.lng}</p>
           <p><strong>Free Seats:</strong> {nearestDriver.freeSeats}</p>
           <p><strong>Rider Type:</strong> {nearestDriver.riderType}</p>
+          <p><strong>Preferences:</strong> {nearestDriver.preferencing}</p>
           <p><strong>Distance from you:</strong> {minDistance !== null ? minDistance.toFixed(2) : "Calculating..."} km</p>
         </div>
       )}

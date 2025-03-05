@@ -28,6 +28,11 @@ const driverSchema = new mongoose.Schema({
     enum: ['paid', 'free'],
     required: [true, "Rider type is required"],
   },
+  preferencing: {
+    type: [String],
+    required: [true, "preference is required"],
+    default: [],
+  },
   createdAt: {
     type: Date,
     default: new Date(),

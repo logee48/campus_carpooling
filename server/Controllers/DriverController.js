@@ -3,8 +3,8 @@ const { createSecretToken } = require("../util/SecretToken");
 
 module.exports.addDriverData = async (req, res, next) => {
   try {
-    // Getting driver data from the body
-    const { driverId, points, freeSeats, riderType } = req.body;
+    // Getting driver data from the body, including 'preferencing'
+    const { driverId, points, freeSeats, riderType, preferencing } = req.body;
 
     // {
     //   "driverId": "driver123",
@@ -13,9 +13,9 @@ module.exports.addDriverData = async (req, res, next) => {
     //     { "lat": 13.0845, "lng": 80.2707 }
     //   ],
     //   "freeSeats": 3,
-    //   "riderType": "paid"
+    //   "riderType": "paid",
+    //   "preferencing": ["Shared Cost", "Carpool"]
     // }
-    
 
     // Check if driver already exists
     const existingDriver = await Driver.findOne({ driverId });
@@ -23,8 +23,8 @@ module.exports.addDriverData = async (req, res, next) => {
       return res.json({ message: "Driver already exists" });
     }
 
-    // Create a new driver entry in the database
-    const driver = await Driver.create({ driverId, points, freeSeats, riderType });
+    // Create a new driver entry in the database, including 'preferencing'
+    const driver = await Driver.create({ driverId, points, freeSeats, riderType, preferencing });
 
     // Using MongoDB unique ID
     const token = createSecretToken(driver._id);
@@ -47,12 +47,12 @@ module.exports.addDriverData = async (req, res, next) => {
 // Optional: If you want to allow drivers to update their data
 module.exports.updateDriverData = async (req, res, next) => {
   try {
-    const { driverId, points, freeSeats, riderType } = req.body;
+    const { driverId, points, freeSeats, riderType, preferencing } = req.body;
 
-    // Find the driver by driverId and update the data
+    // Find the driver by driverId and update the data, including 'preferencing'
     const updatedDriver = await Driver.findOneAndUpdate(
       { driverId },
-      { points, freeSeats, riderType, updatedAt: new Date() },
+      { points, freeSeats, riderType, preferencing, updatedAt: new Date() },
       { new: true } // Return the updated document
     );
 
@@ -68,8 +68,7 @@ module.exports.updateDriverData = async (req, res, next) => {
   }
 };
 
-
-//  IT fetches all driver data
+// Fetch all driver data
 module.exports.getAllDriverData = async (req, res) => {
   try {
     // Retrieve all driver documents from the Driver collection
