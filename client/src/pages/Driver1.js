@@ -4,6 +4,7 @@ import MapComponent from "../components/MapComponent";
 const Driver1 = () => {
   const [points, setPoints] = useState([]); // Array to store points from the MapComponent
   const [seats, setSeats] = useState(0); // Number of free seats input
+  const [DriverId, setDriverId] = useState(); // Number of free seats input
   const [riderType, setRiderType] = useState("paid"); // Rider type selector (paid/free)
   const [pref, setPref] = useState([]); // Preferences for multi-selector
   const [inputValue, setInputValue] = useState(""); // Input value for the preferences
@@ -20,6 +21,9 @@ const Driver1 = () => {
   // Handle seat count change
   const handleSeatsChange = (e) => {
     setSeats(e.target.value);
+  };
+  const handlesDriverIdChange = (e) => {
+    setDriverId(e.target.value);
   };
 
   // Handle rider type selection (Paid or Free)
@@ -48,7 +52,7 @@ const Driver1 = () => {
   // Handle the submit button click
   const handleSubmit = async () => {
     const driverData = {
-      driverId: 1111,
+      driverId: DriverId,
       points,
       freeSeats: seats,
       riderType,
@@ -100,6 +104,15 @@ const Driver1 = () => {
         <h3 className="text-2xl font-semibold mb-4 text-center text-primary">
           Create a Ride
         </h3>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-white mb-2">Driver ID:</label>
+          <input
+            type="text"
+            value={DriverId}
+            onChange={handlesDriverIdChange}
+            className="w-full p-2 border border-gray-700 dark:border-gray-600 rounded bg-gray-800 dark:bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-white mb-2">Free Seats:</label>
           <input
