@@ -6,6 +6,11 @@ const driverSchema = new mongoose.Schema({
     required: [true, "Driver ID is required"],
     unique: true,
   },
+  driverNumber: {
+    type: String,
+    required: [true, "Driver Number is required"],
+    unique: true,
+  },
   points: [
     {
       lat: {

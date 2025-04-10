@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import MapComponent from "../components/MapComponent";
 
 const Driver1 = () => {
+  const [DriverNumber, setDriverNumber] = useState();
   const [points, setPoints] = useState([]); // Array to store points from the MapComponent
   const [seats, setSeats] = useState(0); // Number of free seats input
   const [DriverId, setDriverId] = useState(); // Number of free seats input
@@ -21,6 +22,9 @@ const Driver1 = () => {
   // Handle seat count change
   const handleSeatsChange = (e) => {
     setSeats(e.target.value);
+  };
+  const handledriverNumberChange = (e) => {
+    setDriverNumber(e.target.value);
   };
   const handlesDriverIdChange = (e) => {
     setDriverId(e.target.value);
@@ -53,6 +57,7 @@ const Driver1 = () => {
   const handleSubmit = async () => {
     const driverData = {
       driverId: DriverId,
+      driverNumber: DriverNumber,
       points,
       freeSeats: seats,
       riderType,
@@ -112,6 +117,17 @@ const Driver1 = () => {
             onChange={handlesDriverIdChange}
             className="w-full p-2 border border-gray-700 dark:border-gray-600 rounded bg-gray-800 dark:bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
           />
+          <div className="mb-4">
+          <label className="block text-sm font-medium text-white mb-2">Contact Number:</label>
+          <input
+            type="number"
+            value={DriverNumber}
+            onChange={handledriverNumberChange}
+            min="0"
+            max="10"
+            className="w-full p-2 border border-gray-700 dark:border-gray-600 rounded bg-gray-800 dark:bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary"
+          />
+        </div>
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-white mb-2">Free Seats:</label>

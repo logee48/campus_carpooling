@@ -118,7 +118,7 @@ function Rider() {
         Find Nearest Driver
       </button>
 
-      {nearestDriver && (
+      {/* {nearestDriver && (
         <div className="driver-details" style={{ marginTop: "20px", padding: "10px", border: "1px solid #ddd", borderRadius: "5px" }}>
           <h3>Nearest Driver Details</h3>
           <p><strong>Driver ID:</strong> {nearestDriver.driverId}</p>
@@ -128,7 +128,76 @@ function Rider() {
           <p><strong>Preferences:</strong> {nearestDriver.preferencing}</p>
           <p><strong>Distance from you:</strong> {minDistance !== null ? minDistance.toFixed(2) : "Calculating..."} km</p>
         </div>
-      )}
+      )} */}
+      {nearestDriver && (
+  <div
+    className="driver-details"
+    style={{
+      marginTop: "20px",
+      padding: "10px",
+      border: "1px solid #ddd",
+      borderRadius: "5px",
+    }}
+  >
+    <h3>Nearest Driver Details</h3>
+    <p>
+      <strong>Driver ID:</strong> {nearestDriver.driverId}
+    </p>
+    <p>
+      <strong>Location:</strong> {nearestDriver.lat}, {nearestDriver.lng}
+    </p>
+    <p>
+      <strong>Free Seats:</strong> {nearestDriver.freeSeats}
+    </p>
+    <p>
+      <strong>Rider Type:</strong> {nearestDriver.riderType}
+    </p>
+    <p>
+      <strong>Preferences:</strong> {nearestDriver.preferencing}
+    </p>
+    <p>
+      <strong>Distance from you:</strong>{" "}
+      {minDistance !== null ? minDistance.toFixed(2) : "Calculating..."} km
+    </p>
+
+    <button
+      onClick={async () => {
+        const res = await fetch("http://localhost:1234/book", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ driverId: nearestDriver.driverId }),
+          credentials: "include",
+        });
+
+        if (res.ok) {
+          // Optional: Update the UI locally without refetching everything
+          setNearestDriver((prev) => ({
+            ...prev,
+            freeSeats: prev.freeSeats - 1,
+          }));
+          alert("Successfully booked the ride!");
+        } else {
+          const err = await res.json();
+          alert(`Booking failed: ${err.message}`);
+        }
+      }}
+      style={{
+        marginTop: "10px",
+        padding: "8px 16px",
+        backgroundColor: "#4CAF50",
+        color: "white",
+        border: "none",
+        borderRadius: "4px",
+        cursor: "pointer",
+      }}
+    >
+      Book Ride
+    </button>
+  </div>
+)}
+
     </div>
   );
 }
